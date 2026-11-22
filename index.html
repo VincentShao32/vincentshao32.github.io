@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vincent Shao</title>
+<meta name="description" content="Vincent Shao: ML research at Ai2, computer science at the University of Washington.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vincent Shao">
+<meta property="og:description" content="Vincent Shao: ML research at Ai2, computer science at the University of Washington.">
+<meta property="og:url" content="https://vincentshao32.github.io/">
+<meta property="og:image" content="https://vincentshao32.github.io/hero.jpg">
+<meta name="theme-color" content="#0B1719">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
+<style>
+/* Layout: two screens. The first is the photo, full bleed, with a quiet caption-like title.
+   Scrolling dissolves it into black, and the second screen rises in: everything about you
+   in one compact column on the left, a photo mosaic filling the right. */
+:root{
+  --bg:#0B1719;
+  --bg-clear:rgba(11,23,25,0);
+  --print:#E9E6DF;
+  --fg:#ECEBE7;
+  --fg-soft:#9C9B97;
+  --rule:#1F3236;
+  --slot:#16272B;
+  --ink-on-sky:#1B2226;
+  --rule-strong:#3D5257;
+  --f-serif:"Newsreader","Iowan Old Style",Georgia,serif;
+  --f-sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --fs-tiny:13px;
+  --fs-body:15px;
+  --fs-lead:clamp(16.5px,1.35vw,19px);
+  --fs-name:clamp(44px,6vw,84px);
+  --pad:clamp(24px,4.5vh,64px);
+  --side-l:max(16px,env(safe-area-inset-left,0px));
+  --side-r:max(16px,env(safe-area-inset-right,0px));
+  --inset-l:max(clamp(20px,5vw,72px),env(safe-area-inset-left,0px));
+  --inset-r:max(clamp(20px,5vw,72px),env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:var(--fs-body);line-height:1.55;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+a{color:var(--fg);text-decoration-color:var(--fg-soft);text-decoration-thickness:1px;text-underline-offset:.25em}
+a:hover{text-decoration-color:var(--fg)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+
+/* screen 1: the photo */
+/* The cover is two flat layers side by side: the sharp photo and a soft copy the script
+   draws once. Each only ever changes its own opacity. Do not put a fading or zooming
+   wrapper around them: grouping them that way measurably halved the scrolling frame rate. */
+.hero{position:fixed;inset:0;z-index:0}
+.hero img,.hero canvas{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 85%;transform-origin:70% 78%;will-change:opacity,transform}
+.hero canvas{opacity:0;visibility:hidden}
+@media (max-aspect-ratio:1/1){.hero img,.hero canvas{object-position:68% 60%}}
+
+.cover{position:relative;z-index:1;height:100vh;height:100svh}
+.title{position:absolute;left:var(--inset-l);right:var(--side-r);top:calc(clamp(56px,13vh,150px) + env(safe-area-inset-top,0px));max-width:640px;color:var(--ink-on-sky);will-change:opacity,transform}
+.title a{color:var(--ink-on-sky);text-decoration-color:currentColor}
+.name{margin:0;font-family:var(--f-display);font-weight:600;font-size:calc(var(--fs-name) * .94);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.sub{margin:14px 0 0;max-width:52ch;font-family:var(--f-serif);font-size:clamp(18px,1.75vw,22px);line-height:1.5}
+
+/* screen 2: text left, photos right */
+.info{position:relative;z-index:1;min-height:100vh;min-height:100svh;padding:var(--pad) var(--inset-r) var(--pad) var(--inset-l);background:linear-gradient(to bottom,var(--bg-clear) 0,var(--bg) 32vh)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;max-width:1400px;margin-inline:auto}
+.text{min-width:0;max-width:660px;display:flex;flex-direction:column;justify-content:safe center}
+
+.me{margin:0;font-family:var(--f-serif);font-weight:300;font-size:clamp(28px,2.6vw,36px);line-height:1.05;letter-spacing:-.01em}
+.lead + .lead{margin-top:.7em}
+.lead{margin:0;font-family:var(--f-serif);font-weight:300;font-size:var(--fs-lead);line-height:1.42;text-wrap:pretty}
+
+.sec{display:grid;grid-template-columns:minmax(0,5.5rem) minmax(0,1fr);gap:2px 20px;padding:10px 0;border-top:1px solid var(--rule)}
+.sec:first-of-type{margin-top:30px}
+.sec:last-of-type{border-bottom:1px solid var(--rule)}
+.sec>h2{margin:0;font-size:var(--fs-tiny);font-weight:500;line-height:1.7;color:var(--fg-soft)}
+.sec p{margin:0}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.items li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 16px}
+.items li>span:first-child{min-width:0}
+.items strong{font-weight:600}
+.when{margin-left:auto;font-size:var(--fs-tiny);color:var(--fg-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.paper-title{font-family:var(--f-serif);font-size:16.5px;line-height:1.3;text-decoration:none}
+.paper-title:hover{text-decoration:underline}
+.paper{margin-top:12px}
+.paper:first-child{margin-top:0}
+.authors{display:block;font-size:var(--fs-tiny);color:var(--fg-soft)}
+.authors strong{font-weight:600;color:var(--fg)}
+.links-row{display:flex;flex-wrap:wrap;align-items:center;gap:0 16px;font-size:var(--fs-tiny)}
+.links-row a,.textbtn{display:inline-flex;align-items:center;min-height:32px}
+.textbtn{padding:0;border:0;background:none;color:var(--fg);font:inherit;text-decoration:underline;text-decoration-color:var(--fg-soft);text-decoration-thickness:1px;text-underline-offset:.25em;cursor:pointer}
+.textbtn:hover{text-decoration-color:var(--fg)}
+.bib{margin-top:6px;padding:12px 14px;border:1px solid var(--rule);background:var(--slot)}
+.bib pre{margin:0;overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;line-height:1.5;white-space:pre;color:var(--fg)}
+.email{font-family:var(--f-serif);font-size:18px;overflow-wrap:anywhere;user-select:all}
+
+/* company logos: single-colour logos on a transparent background are turned white */
+.logos{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
+.items.more{margin-top:10px}
+.logo{display:flex;align-items:center;height:34px}
+.logo img{display:block;width:32px;height:32px;object-fit:contain}
+.logo-slot{justify-content:center;width:92px;border:1px dashed var(--rule-strong);color:var(--fg-soft);font-size:12px}
+
+/* photo mosaic */
+.photos{position:relative;min-width:0;width:100%;aspect-ratio:15/16;align-self:center;justify-self:center}
+.photos figure{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:var(--ar);margin:0;padding:6px;background:var(--print);box-shadow:0 14px 34px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.3);transform:rotate(var(--r));opacity:calc(.2 + .8 * var(--clear));filter:blur(calc((1 - var(--clear)) * 8px));will-change:filter,opacity;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;--clear:1}
+.photos figure:hover{transform:rotate(0deg) scale(1.04);z-index:9;box-shadow:0 22px 48px rgba(0,0,0,.55),0 3px 8px rgba(0,0,0,.3)}
+/* each print: position and width as % of the pile, shape, tilt, and stacking order */
+.p-a{--x:51%;--y:25%;--w:46%;--ar:7/8;--r:2.5deg;z-index:1}
+.p-c{--x:2%;--y:2%;--w:55%;--ar:3/4;--r:-3deg;z-index:2}
+.p-d{--x:22%;--y:60%;--w:36%;--ar:7/8;--r:-1.5deg;z-index:3}
+.shot{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
+img.shot{object-position:70% 55%}
+.slot{display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;background:var(--slot);color:var(--fg-soft);font-size:var(--fs-tiny)}
+@media (prefers-reduced-motion:reduce){.photos figure{transition:none}}
+.photos figcaption{position:absolute;left:6px;right:6px;bottom:6px;padding:24px 12px 10px;font-family:var(--f-serif);font-style:italic;font-size:14px;color:var(--fg);background:linear-gradient(to bottom,var(--bg-clear),rgba(0,0,0,.6))}
+
+/* desktop: the whole second screen fits in one viewport */
+@media (min-width:900px) and (min-height:600px){
+  .grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(40px,5vw,80px);height:calc(100svh - 2 * var(--pad))}
+  .photos{width:min(100%,calc((100svh - 2 * var(--pad)) * 15 / 16))}
+}
+</style>
+</head>
+<body>
+
+<div class="hero" aria-hidden="true">
+  <img src="hero.jpg" alt="" fetchpriority="high"><canvas></canvas>
+</div>
+
+<header class="cover">
+  <div class="title">
+    <h1 class="name">Vincent Shao</h1>
+    <p class="sub">ML research at Ai2 · University of Washington</p>
+  </div>
+</header>
+
+<main class="info" id="info">
+  <div class="grid">
+    <div class="text" id="text">
+      <p class="lead">I'm Vincent, an undergrad studying computer science at the University of Washington. I'm interested in ML research in computer vision, robotics, and NLP.</p>
+      <p class="lead">I'm currently a student researcher at <a href="https://allenai.org/" target="_blank" rel="noopener">Ai2</a> in the robotics team, working on point tracking and wet lab automation. I've also contributed to the Molmo line of models, improving object tracking and multi-view pointing.</p>
+      <p class="lead">Next summer I'll be an MLE intern with Jane Street, and I've previously interned at Databricks and AWS. Some of my hobbies are climbing, skiing, and making food!</p>
+      <!-- Symbols live in logos/*-mark.svg; the full logos (with names) are beside them
+           as logos/ai2.svg etc. if you want to switch back. Each symbol fits the same 32px box. -->
+      <ul class="logos" aria-label="Where I've worked">
+        <li class="logo"><img src="logos/ai2-mark.svg" alt="Ai2" title="Ai2"></li>
+        <li class="logo"><img src="logos/jane-street-mark.svg" alt="Jane Street" title="Jane Street"></li>
+        <li class="logo"><img src="logos/databricks-mark.svg" alt="Databricks" title="Databricks"></li>
+        <li class="logo"><img src="logos/aws-mark.svg" alt="AWS" title="AWS"></li>
+      </ul>
+
+      <section class="sec" aria-labelledby="h-research">
+        <h2 id="h-research">Research</h2>
+        <div>
+          <div class="paper">
+            <p><a class="paper-title" href="https://arxiv.org/abs/2601.10611" target="_blank" rel="noopener">Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding</a></p>
+            <p class="authors">C. Clark, J. Zhang, Z. Ma, … <strong>V. Shao</strong>, … A. Farhadi, R. Krishna</p>
+            <p class="links-row">
+              <span class="when" style="margin-left:0">CVPR 2026, oral</span>
+              <a href="https://arxiv.org/pdf/2601.10611" target="_blank" rel="noopener">PDF</a>
+              <a href="https://github.com/allenai/molmo2" target="_blank" rel="noopener">Code</a>
+              <button class="textbtn" type="button" id="cite-molmo2" aria-expanded="false" aria-controls="bib-molmo2">Cite</button>
+            </p>
+            <div class="bib" id="bib-molmo2" hidden>
+<pre id="bib-molmo2-text">@inproceedings{clark2026molmo2,
+  title     = {Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding},
+  author    = {Clark, Christopher and Zhang, Jieyu and Ma, Zixian and Park, Jae Sung and Salehi, Mohammadreza and Tripathi, Rohun and Lee, Sangho and Ren, Zhongzheng and Kim, Chris Dongjoo and Yang, Yinuo and Shao, Vincent and Yang, Yue and Huang, Weikai and Gao, Ziqi and Anderson, Taira and Zhang, Jianrui and Jain, Jitesh and Stoica, George and Han, Winson and Farhadi, Ali and Krishna, Ranjay},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2026},
+  note      = {arXiv:2601.10611}
+}</pre>
+              <button class="textbtn" type="button" id="copy-bib-molmo2">Copy BibTeX</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" aria-labelledby="h-contact">
+        <h2 id="h-contact">Contact</h2>
+        <div>
+          <p><span class="email" id="email">yunbos@uw.edu</span></p>
+          <p class="links-row">
+            <a href="https://scholar.google.com/citations?user=3f8NQV0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+            <a href="https://www.linkedin.com/in/vincent-shao-074a45167" target="_blank" rel="noopener">LinkedIn</a>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <section class="photos" aria-label="Photos">
+      <figure class="p-a"><img class="shot" src="climbing.jpg" alt="Bouldering on an overhanging wall at a climbing gym." loading="lazy" style="object-position:40% 40%"></figure>
+      <figure class="p-c"><img class="shot" src="portrait.jpg" alt="Vincent, in a white t-shirt, smiling at a table." loading="lazy" style="object-position:50% 30%"></figure>
+      <figure class="p-d"><img class="shot" src="talk.jpg" alt="Vincent talking to a room, in a grey hoodie and a t-shirt with a planet on it." loading="lazy" style="object-position:50% 30%"></figure>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero=document.querySelector('.hero');
+  var heroImg=hero.querySelector('img'), soft=hero.querySelector('canvas'), softReady=false;
+  var title=document.querySelector('.title'), text=document.getElementById('text');
+  var photos=[].slice.call(document.querySelectorAll('.photos figure')), lastClear=[];
+  var ticking=false, last={};
+  function clamp(v){return v<0?0:v>1?1:v;}
+  /* write a style only when its value actually changed */
+  function set(key,el,prop,val){if(last[key]!==val){last[key]=val;el.style[prop]=val;}}
+
+  /* Draw a small, soft copy of the cover photo once. Fading it in over the sharp photo
+     reads as a blur, without blurring a full-screen image on every scroll frame. */
+  function makeSoft(){
+    if(reduce||softReady||!heroImg.naturalWidth) return;
+    try{
+      var w=320, h=Math.max(1,Math.round(w*heroImg.naturalHeight/heroImg.naturalWidth));
+      soft.width=w; soft.height=h;
+      var c=soft.getContext('2d');
+      c.imageSmoothingQuality='high';
+      c.drawImage(heroImg,0,0,w,h);
+      /* blur strength: this is on the small copy, so 1px here is roughly 4-5px on screen */
+      if('filter' in c){c.filter='blur(2.6px)';c.drawImage(heroImg,0,0,w,h);}
+      softReady=true; request();
+    }catch(err){}
+  }
+
+  function update(){
+    ticking=false;
+    var H=window.innerHeight, y=window.scrollY;
+    /* The photo dissolves into the dark over the scroll to the second screen, going soft
+       and drifting closer as it goes. e is how far it has faded; s is how much of what is
+       left is the soft copy (it takes over early, so the blur shows while the photo is
+       still bright). The two opacities give exactly "soft copy at strength s over the
+       sharp photo, the pair faded to 1-e", without a wrapper to fade the pair. */
+    var p=clamp(y/(H*.95)), e=p*p*(3-2*p);
+    var s=softReady?clamp(e*2.2):0;
+    var as=(1-e)*s, ai=as<1?(1-e)*(1-s)/(1-as):0;
+    set('ho',heroImg,'opacity',ai.toFixed(3));
+    set('so',soft,'opacity',as.toFixed(3));
+    set('sv',soft,'visibility',as>.001?'visible':'hidden');
+    if(!reduce){
+      var zoom='scale('+(1+e*.07).toFixed(4)+')';
+      set('hz',heroImg,'transform',zoom);
+      set('sz',soft,'transform',zoom);
+    }
+    set('hv',hero,'visibility',p>=1?'hidden':'visible');
+    /* the title lifts away a little faster than the photo */
+    var t=clamp(y/(H*.5));
+    set('to',title,'opacity',(1-t).toFixed(3));
+    if(!reduce) set('tt',title,'transform','translateY('+(-t*40).toFixed(1)+'px)');
+    /* the text and photos come out of the dark as the second screen arrives */
+    if(!reduce){
+      var to=.15+.85*clamp((y-H*.2)/(H*.6));
+      set('xo',text,'opacity',to.toFixed(3));
+      set('xw',text,'willChange',to<1?'opacity':'');
+      for(var i=0;i<photos.length;i++){
+        var r=photos[i].getBoundingClientRect();
+        var c=clamp((H-r.top)/(H*.36)).toFixed(3);
+        if(c!==lastClear[i]){lastClear[i]=c;photos[i].style.setProperty('--clear',c);}
+      }
+    }
+  }
+  function request(){if(!ticking){ticking=true;window.requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  if(heroImg.complete&&heroImg.naturalWidth) makeSoft(); else heroImg.addEventListener('load',makeSoft);
+  update();
+
+  /* cite + copy */
+  [].forEach.call(document.querySelectorAll('button[aria-controls]'),function(btn){
+    var box=document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click',function(){var open=box.hidden;box.hidden=!open;btn.setAttribute('aria-expanded',String(open));});
+  });
+  function selectEl(el){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
+  function wireCopy(btnId,srcId){
+    var b=document.getElementById(btnId), src=document.getElementById(srcId);
+    if(!b||!src) return;
+    var label=b.textContent;
+    function done(m){b.textContent=m;setTimeout(function(){b.textContent=label;},1600);}
+    b.addEventListener('click',function(){
+      var text=src.textContent.trim();
+      try{navigator.clipboard.writeText(text).then(function(){done('Copied');},function(){selectEl(src);done('Selected');});}
+      catch(err){selectEl(src);done('Selected');}
+    });
+  }
+  wireCopy('copy-bib-molmo2','bib-molmo2-text');
+})();
+</script>
+</body>
+</html>
