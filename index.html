@@ -144,7 +144,7 @@ img.shot{object-position:70% 55%}
   <div class="grid">
     <div class="text" id="text">
       <p class="lead">I'm Vincent, an undergrad studying computer science at the University of Washington. I'm interested in ML research in computer vision, robotics, and NLP.</p>
-      <p class="lead">I'm currently a student researcher at <a href="https://allenai.org/" target="_blank" rel="noopener">Ai2</a> in the robotics team, working on point tracking and wet lab automation. I've also contributed to the Molmo line of models, improving object tracking and multi-view pointing.</p>
+      <p class="lead">I'm currently a student researcher at <a href="https://allenai.org/" target="_blank" rel="noopener">Ai2</a> in the robotics team. We recently released RoboTrack, a benchmark and training suite for point tracking in real-world robotic manipulation. I've also contributed to the Molmo line of models, improving object tracking and multi-view pointing.</p>
       <p class="lead">Next summer I'll be an MLE intern with Jane Street, and I've previously interned at Databricks and AWS. Some of my hobbies are climbing, skiing, and making food!</p>
       <!-- Symbols live in logos/*-mark.svg; the full logos (with names) are beside them
            as logos/ai2.svg etc. if you want to switch back. Each symbol fits the same 32px box. -->
@@ -158,6 +158,22 @@ img.shot{object-position:70% 55%}
       <section class="sec" aria-labelledby="h-research">
         <h2 id="h-research">Research</h2>
         <div>
+          <p><span class="paper-title" style="text-decoration:none">RoboTrack: Point Tracking for Real-World Robotic Manipulation</span></p>
+          <p class="authors"><strong>V. Shao</strong>, M. Argus, W. Han, E. VanderBilt, C. Schoenick, A. Farhadi, R. Krishna, Z. Ren, J. S. Park</p>
+          <p class="links-row">
+            <span class="when" style="margin-left:0">Ai2, November 2026</span>
+            <button class="textbtn" type="button" id="cite" aria-expanded="false" aria-controls="bib">Cite</button>
+          </p>
+          <div class="bib" id="bib" hidden>
+<pre id="bib-text">@techreport{shao2026robotrack,
+  title       = {RoboTrack: Point Tracking for Real-World Robotic Manipulation},
+  author      = {Shao, Vincent and Argus, Max and Han, Winson and VanderBilt, Eli and Schoenick, Carissa and Farhadi, Ali and Krishna, Ranjay and Ren, Zhongzheng and Park, Jae Sung},
+  institution = {Allen Institute for AI},
+  month       = nov,
+  year        = {2026}
+}</pre>
+            <button class="textbtn" type="button" id="copy-bib">Copy BibTeX</button>
+          </div>
           <div class="paper">
             <p><a class="paper-title" href="https://arxiv.org/abs/2601.10611" target="_blank" rel="noopener">Molmo2: Open Weights and Data for Vision-Language Models with Video Understanding and Grounding</a></p>
             <p class="authors">C. Clark, J. Zhang, Z. Ma, … <strong>V. Shao</strong>, … A. Farhadi, R. Krishna</p>
@@ -288,6 +304,7 @@ img.shot{object-position:70% 55%}
       catch(err){selectEl(src);done('Selected');}
     });
   }
+  wireCopy('copy-bib','bib-text');
   wireCopy('copy-bib-molmo2','bib-molmo2-text');
 })();
 </script>
