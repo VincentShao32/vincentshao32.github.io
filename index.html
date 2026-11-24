@@ -276,9 +276,14 @@ img.shot{object-position:70% 55%}
       var to=.15+.85*clamp((y-H*.2)/(H*.6));
       set('xo',text,'opacity',to.toFixed(3));
       set('xw',text,'willChange',to<1?'opacity':'');
+      /* A photo sharpens as it rises through the bottom third of the screen. Near the foot of
+         the page (phones, where the photos come last) it cannot rise that far, so the distance
+         is capped at what it can actually travel: every photo is sharp before the page ends. */
+      var left=Math.max(0,document.documentElement.scrollHeight-H-y);
       for(var i=0;i<photos.length;i++){
         var r=photos[i].getBoundingClientRect();
-        var c=clamp((H-r.top)/(H*.36)).toFixed(3);
+        var reach=H-(r.top-left);
+        var c=clamp((H-r.top)/Math.max(1,Math.min(H*.36,reach*.85))).toFixed(3);
         if(c!==lastClear[i]){lastClear[i]=c;photos[i].style.setProperty('--clear',c);}
       }
     }
@@ -292,7 +297,7 @@ img.shot{object-position:70% 55%}
   /* cite + copy */
   [].forEach.call(document.querySelectorAll('button[aria-controls]'),function(btn){
     var box=document.getElementById(btn.getAttribute('aria-controls'));
-    btn.addEventListener('click',function(){var open=box.hidden;box.hidden=!open;btn.setAttribute('aria-expanded',String(open));});
+    btn.addEventListener('click',function(){var open=box.hidden;box.hidden=!open;btn.setAttribute('aria-expanded',String(open));request();});
   });
   function selectEl(el){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
   function wireCopy(btnId,srcId){
